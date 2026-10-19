@@ -1,11 +1,12 @@
 import Phaser from 'phaser';
 import { t } from '../../i18n';
 import { palette, toCss } from '../palette';
+import { LogicalScene } from './LogicalScene';
 
-const BORDER_WIDTH = 16;
+const BORDER_WIDTH = 6;
 
 /** Écran de validation du jalon 0 : vérifie le rendu, le scaling EXPAND et l'i18n. */
-export class HelloScene extends Phaser.Scene {
+export class HelloScene extends LogicalScene {
   private borders!: Phaser.GameObjects.Graphics;
   private title!: Phaser.GameObjects.Text;
   private subtitle!: Phaser.GameObjects.Text;
@@ -17,29 +18,35 @@ export class HelloScene extends Phaser.Scene {
   }
 
   create(): void {
+    this.setupLogicalCamera();
     this.borders = this.add.graphics();
 
     const ink = toCss(palette.ink);
     this.title = this.add
-      .text(0, 0, t('app.title'), {
-        fontFamily: 'system-ui, sans-serif',
-        fontSize: '40px',
-        fontStyle: 'bold',
-        color: toCss(palette.ally),
-        stroke: ink,
-        strokeThickness: 6,
-      })
+      .text(
+        0,
+        0,
+        t('app.title'),
+        this.textStyle({
+          fontFamily: 'system-ui, sans-serif',
+          fontSize: '40px',
+          fontStyle: 'bold',
+          color: toCss(palette.ally),
+          stroke: ink,
+          strokeThickness: 6,
+        }),
+      )
       .setOrigin(0.5);
 
     // L'anthracite seul sur la sauge ne donne que 3,9:1 (< 4,5:1 exigé, SPEC §8.4) :
     // texte clair cerné de foncé, lisible quel que soit le fond.
-    const bodyStyle: Phaser.Types.GameObjects.Text.TextStyle = {
+    const bodyStyle = this.textStyle({
       fontFamily: 'system-ui, sans-serif',
       fontSize: '18px',
       color: toCss(palette.ally),
       stroke: ink,
       strokeThickness: 4,
-    };
+    });
     this.subtitle = this.add.text(0, 0, t('hello.subtitle'), bodyStyle).setOrigin(0.5);
     this.viewport = this.add.text(0, 0, '', bodyStyle).setOrigin(0.5);
     this.version = this.add
@@ -49,7 +56,7 @@ export class HelloScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    this.layout(this.scale.gameSize);
+    this.layout();
     this.scale.on(Phaser.Scale.Events.RESIZE, this.layout);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.scale.off(Phaser.Scale.Events.RESIZE, this.layout);
@@ -57,8 +64,8 @@ export class HelloScene extends Phaser.Scene {
   }
 
   /** Avec Scale.EXPAND, la hauteur logique change selon l'écran : on replace tout. */
-  private readonly layout = (gameSize: Phaser.Structs.Size): void => {
-    const { width, height } = gameSize;
+  private readonly layout = (): void => {
+    const { width, height } = this.logicalSize;
 
     this.borders.clear();
     this.borders.fillStyle(palette.sand);

@@ -27,6 +27,10 @@
         position: fixed;
         inset: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
           env(safe-area-inset-left);
+        /* Colonne portrait d'au plus 9:16, centrée : sur un écran large, Scale.EXPAND
+           élargirait sinon le couloir au-delà de 360 unités logiques. */
+        max-width: calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * 9 / 16);
+        margin: 0 auto;
       }
     </style>
   </head>
