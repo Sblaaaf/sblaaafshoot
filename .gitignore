@@ -1,0 +1,17 @@
+node_modules/
+dist/
+dev-dist/
+coverage/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Sorties du simulateur (le résumé sera versionné explicitement)
+reports/*
+!reports/.gitkeep
+
+# Playwright
+test-results/
+playwright-report/

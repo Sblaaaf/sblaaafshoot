@@ -1,0 +1,6 @@
+{
+  "app.title": "SblaaafShoot",
+  "hello.subtitle": "Le socle est prêt",
+  "hello.viewport": "Zone logique : {width} × {height}",
+  "hello.version": "Version {version}"
+}
