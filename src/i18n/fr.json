@@ -1,6 +1,17 @@
 {
   "app.title": "SblaaafShoot",
-  "hello.subtitle": "Le socle est prêt",
-  "hello.viewport": "Zone logique : {width} × {height}",
-  "hello.version": "Version {version}"
+  "hud.squad": "Effectif {count}",
+  "hud.base": "Base {hp} / {max}",
+  "hud.time": "{elapsed} / {total}",
+  "hud.weapon": "Dégâts {damage} · Cadence {rate}/s",
+  "hud.fps": "{fps} FPS",
+  "pause.title": "Pause",
+  "pause.resume": "Reprendre",
+  "pause.restart": "Recommencer",
+  "end.victory": "Victoire !",
+  "end.defeat": "Défaite",
+  "end.time": "Temps : {time}",
+  "end.kills": "Ennemis éliminés : {kills}",
+  "end.base": "Base : {hp} / {max}",
+  "end.replay": "Rejouer"
 }

@@ -10,6 +10,14 @@ const numberFormat = new Intl.NumberFormat('fr-FR');
 /** Nombre au format français (SPEC §8.2) : 1234 → « 1 234 ». */
 export const formatNumber = (value: number): string => numberFormat.format(value);
 
+/** Durée de jeu au format chronomètre : 83,4 s → « 1:23 ». */
+export const formatDuration = (seconds: number): string => {
+  const total = Math.max(0, Math.floor(seconds));
+  const minutes = Math.floor(total / 60);
+  const rest = total % 60;
+  return `${minutes}:${rest.toString().padStart(2, '0')}`;
+};
+
 /**
  * Traduit une clé et remplace les `{param}`. Les nombres sont formatés en français.
  * Un paramètre absent laisse le `{param}` visible, pour repérer l'oubli.
